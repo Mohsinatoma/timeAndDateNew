@@ -67,8 +67,6 @@ public static LocalDate calenderTolocalDate(Object set) {
 
 public static ZonedDateTime convertCalendarToZonedTime(Calendar cal,ZoneId zoneid)
 {
-	//ZoneId zoneid = ZoneId.of("Asia/Tokyo");
-	
 	
 	ZonedDateTime zonedDateTime = ZonedDateTime.of(CalendarToLocalDateTime(cal), zoneid);
 	
@@ -93,6 +91,14 @@ public static OffsetDateTime DateToOffsetDateTime(Calendar cal,ZoneOffset offset
     OffsetDateTime offsetDateTime = OffsetDateTime.of(CalendarToLocalDateTime(cal), offset);
     
     return offsetDateTime;
+}
+
+
+public static Calendar DateToCalender(Date date) {
+	Calendar calendar = Calendar.getInstance();
+	calendar.setTime(date);
+	
+	return calendar;
 }
 
 

@@ -112,7 +112,7 @@ public class ConvertorTest {
 	
 	@Test
 	public void CalendarToZonedTime() {
-		ZoneId zoneid = ZoneId.of("Asia/Tokyo");
+		ZoneId zoneid = ZoneId.of("Asia/Dhaka");
 		Calendar cal = Calendar.getInstance();
 		ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDateTime.now(), zoneid);
 		assertEquals(zonedDateTime.getHour(), Converter.convertCalendarToZonedTime(cal, zoneid).getHour());
@@ -133,6 +133,24 @@ public class ConvertorTest {
 		assertNotEquals(dateTime1,Converter.DateToOffsetDateTime(cal, offset));
 		
 	}
+	
+	
+	@Test
+	public void DateToCalender() throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+		String dateInString = "01-01-2019 10:20:56";
+		Date date = sdf.parse(dateInString);
+		Calendar calin=Converter.DateToCalender(date);
+		
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat formatter5 = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+		String dateInString1 = "Tue Jan 01 10:20:56 BDT 2019";
+		Date date1 = formatter5.parse(dateInString1);
+		
+		assertEquals(date1,calin.getTime());
+	}
+	
 
 
 
