@@ -13,8 +13,6 @@ import org.junit.Test;
 
 
 
-
-
 public class ConvertorTest {
 
 
@@ -23,13 +21,11 @@ public class ConvertorTest {
 		
 		String sDate5 = "Wed, Jan 16 2019 23:37:50";
 		SimpleDateFormat formatter5 = new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss");
-		Date date5 = formatter5.parse(sDate5);
-		LocalDate d = Converter.datetolocaldate(date5);
-
+		
 		String sDate1 = "2019-01-16";
-		LocalDate date = LocalDate.parse(sDate1);
 
-		assertEquals(date, d);
+
+		assertEquals(LocalDate.parse(sDate1), Converter.datetolocaldate(formatter5.parse(sDate5)));
 	}
 
 	@Test
@@ -38,16 +34,10 @@ public class ConvertorTest {
 		Converter c = new Converter();
 		String sDate5 = "Wed, Jan 16 2019 15:55:41";
 		SimpleDateFormat formatter5 = new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss");
-		Date date5 = formatter5.parse(sDate5);
-		LocalTime d = c.dateToLocalTime(date5);
-		
 		
 
 		String Time="15:55:41";
-		LocalTime localTime = LocalTime.parse(Time);
-		//System.out.print("localTime"+localTime);
-		
-		assertEquals(localTime, d);
+		assertEquals(LocalTime.parse(Time), c.dateToLocalTime(formatter5.parse(sDate5)));
 		
 		
 
@@ -58,16 +48,14 @@ public class ConvertorTest {
 	           
 		String sDate1 = "2019-01-16";
 		LocalDate date = LocalDate.parse(sDate1);
-		Calendar d=Converter.LocalDatetocalender(date);
-		Date dd=d.getTime();
-      TimeZone ddd= d.getTimeZone();
-      System.out.print("localTime"+ddd);
+		
+      
 		String sDate5 = "Wed Jan 16 00:00:00 BDT 2019";
 		SimpleDateFormat formatter5 = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
-		Date date5 = formatter5.parse(sDate5);
+		
 	
 	
-		assertEquals(dd, date5 );
+		assertEquals(formatter5.parse(sDate5),Converter.LocalDatetocalender(date).getTime() );
 		
 
 		
@@ -79,18 +67,16 @@ public class ConvertorTest {
 	
 
 		String sDate1 = "2019-01-16";
-		LocalDate date = LocalDate.parse(sDate1);
-		Date d=Converter.localDatetodate(date);
 	
 	
 		
 		String sDate5 = "Wed, Jan 16 2019 00:00:00 BDT 2019";
 		SimpleDateFormat formatter5 = new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss Z yyyy");
-		Date date5 = formatter5.parse(sDate5);
+
 		
 		
 		
-		assertEquals(date5, d);
+		assertEquals(formatter5.parse(sDate5), Converter.localDatetodate(LocalDate.parse(sDate1)));
 		
 
 	}
@@ -122,15 +108,13 @@ public class ConvertorTest {
 	@Test
 	public void CalendarToLocalDateTime() {
 		Calendar cal = Calendar.getInstance();
-		LocalDateTime d1 = LocalDateTime.now();
-		
+		cal.set(2019,Calendar.JANUARY, 1);
+		assertEquals(LocalDate.of(2019, 1, 1), Converter.calendarToLocalDate(cal));
 	}
 	@Test
 	public void DateToOffsetDateTime() {
-		Calendar cal = Calendar.getInstance();
-		ZoneOffset offset = ZoneOffset.ofHoursMinutes(1, 30);
-		OffsetDateTime dateTime1=OffsetDateTime.of(LocalDateTime.of(2019, 01, 12, 05, 45), ZoneOffset.ofHoursMinutes(6, 30));
-		assertNotEquals(dateTime1,Converter.DateToOffsetDateTime(cal, offset));
+
+		assertNotEquals(OffsetDateTime.of(LocalDateTime.of(2019, 01, 12, 05, 45), ZoneOffset.ofHoursMinutes(6, 30)),Converter.DateToOffsetDateTime( Calendar.getInstance(), ZoneOffset.ofHoursMinutes(1, 30)));
 		
 	}
 	
@@ -146,13 +130,20 @@ public class ConvertorTest {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat formatter5 = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
 		String dateInString1 = "Tue Jan 01 10:20:56 BDT 2019";
-		Date date1 = formatter5.parse(dateInString1);
+	
 		
-		assertEquals(date1,calin.getTime());
+		assertEquals(formatter5.parse(dateInString1),calin.getTime());
 	}
 	
 
-	
+	@Test
+	public void testConvertCalendarToLocalTime() {
+		Calendar cal = Calendar.getInstance();
+		int lh = LocalTime.now().getHour();
+		int lm = LocalTime.now().getMinute();
+		assertEquals(lh, Converter.calendarToLocalTime(cal).getHour());
+		assertEquals(lm, Converter.calendarToLocalTime(cal).getMinute());
+	}
 
 
 }

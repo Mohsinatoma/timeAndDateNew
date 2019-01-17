@@ -101,5 +101,17 @@ public static Calendar DateToCalender(Date date) {
 	return calendar;
 }
 
+public static LocalDate calendarToLocalDate(Calendar cal) {
+	Date date = cal.getTime();
+	return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	      
+}
+
+
+
+public static LocalTime calendarToLocalTime(Calendar cal) {
+	
+	return cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+}
 
 }
