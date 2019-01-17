@@ -37,7 +37,7 @@ public class Converter {
 
 	    Instant instant = Instant.ofEpochMilli(d.getTime());
 	    LocalTime res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalTime();
-	   // System.out.println(res);
+	    System.out.println(res);
 		return res;
 	}
 	
