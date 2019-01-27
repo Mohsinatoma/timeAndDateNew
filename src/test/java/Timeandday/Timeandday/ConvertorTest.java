@@ -138,11 +138,9 @@ public class ConvertorTest {
 
 	@Test
 	public void testConvertCalendarToLocalTime() {
-		Calendar cal = Calendar.getInstance();
-		int lh = LocalTime.now().getHour();
-		int lm = LocalTime.now().getMinute();
-		assertEquals(lh, Converter.calendarToLocalTime(cal).getHour());
-		assertEquals(lm, Converter.calendarToLocalTime(cal).getMinute());
+
+		assertEquals(LocalTime.now().getHour(), Converter.calendarToLocalTime(Calendar.getInstance()).getHour());
+		assertEquals(LocalTime.now().getMinute(), Converter.calendarToLocalTime(Calendar.getInstance()).getMinute());
 	}
 
 
